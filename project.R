@@ -33,11 +33,22 @@ with(household, hist(Global_active_power,
      )
 # Making a PNG
 # Warning - plot in the output copy may not look exactly like plot on screen!
-
 dev.copy(png,file="Plot1.png") # open graphics device
+dev.off() #close graphics device
+
+# Plot 2 -- Global active power
+with(household,plot(DateTime,Global_active_power,
+                    type="l",
+                    ylab="Global Active Power (kilowatts)",
+                    xlab=""))
+
+# Making a PNG
+# Warning - plot in the output copy may not look exactly like plot on screen!
+dev.copy(png,file="Plot2.png") # open graphics device
 dev.off() #close graphics device
 
 # Other notes
 
 #http://rfunction.com/archives/1912
 #strptime() and as.Date()
+# https://www.statmethods.net/graphs/line.html for line plotting
