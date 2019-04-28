@@ -69,6 +69,27 @@ legend("topright", lty=1, col = c("black","red", "blue"), legend = c("Sub_meteri
 dev.copy(png,file="Plot3.png") # open graphics device
 dev.off() #close graphics device
 
+# Plot 4 - 2x2 array
+par(mfrow =c(2,2),mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
+xrange<- range(household$DateTime)
+yrange<- range(household$Sub_metering_1)
+with(household,{
+  plot(DateTime,Global_active_power,
+       type="l",
+       ylab="Global Active Power (kilowatts)",
+       xlab="")
+  plot(DateTime,Voltage,type="l")
+plot(xrange, yrange, type="n", xlab="", ylab="Energy Sub metering" ) 
+with(household,lines(DateTime,Sub_metering_1))
+with(household,lines(DateTime,Sub_metering_2,col="red"))
+with(household,lines(DateTime,Sub_metering_3,col="blue"))
+legend("topright", lty=1, bty="n",col = c("black","red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+plot(DateTime,Global_reactive_power,type="l")
+})
+
+dev.copy(png,file="Plot4.png") # open graphics device
+dev.off() #close graphics device
+
 # Other notes
 
 #http://rfunction.com/archives/1912
