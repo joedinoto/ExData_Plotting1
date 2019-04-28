@@ -16,14 +16,19 @@ household$DateTime <- dmy_hms(household$DateTime)
 household <- filter(household,DateTime< as.Date("2007-02-03 00:00:00") & DateTime > as.Date("2007-02-01 00:00:00"))
 
 #  assign column variable types
+# (really, I should do this when reading the .txt file)
 household$Date <- dmy(household$Date)
 household$Time <- hms(household$Time)
 household$Global_active_power <- as.numeric(household$Global_active_power)
 household$Global_reactive_power <- as.numeric(household$Global_reactive_power)
 household$Voltage <- as.numeric(household$Voltage)
 household$Global_intensity <- as.numeric(household$Global_intensity)
-household$Sub_metering_1 <- as.numeric(household$Sub_metering_2)
+household$Sub_metering_1 <- as.numeric(household$Sub_metering_1)
 household$Sub_metering_2 <- as.numeric(household$Sub_metering_2)
+household$Sub_metering_3 <- as.numeric(household$Sub_metering_3)
+
+# Write to CSV
+write.csv(household, file = "household.csv")
 
 # Plot1 -- Histogram
 with(household, hist(Global_active_power, 
@@ -46,6 +51,18 @@ with(household,plot(DateTime,Global_active_power,
 # Warning - plot in the output copy may not look exactly like plot on screen!
 dev.copy(png,file="Plot2.png") # open graphics device
 dev.off() #close graphics device
+
+
+# Plot 3 - three line graphs
+# set up the plot 
+xrange<- range(household$DateTime)
+yrange<- range(household$Sub_metering_1)
+plot(xrange, yrange, type="n", xlab="", ylab="Energy Sub metering" ) 
+with(household,lines(DateTime,Sub_metering_1))
+with(household,lines(DateTime,Sub_metering_2,col="red"))
+with(household,lines(DateTime,Sub_metering_3,col="blue"))
+legend("topright", lty=1, col = c("black","red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+
 
 # Other notes
 
