@@ -64,6 +64,11 @@ with(household,lines(DateTime,Sub_metering_3,col="blue"))
 legend("topright", lty=1, col = c("black","red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
 
 
+# Making a PNG
+# Warning - plot in the output copy may not look exactly like plot on screen!
+dev.copy(png,file="Plot3.png") # open graphics device
+dev.off() #close graphics device
+
 # Other notes
 
 #http://rfunction.com/archives/1912
